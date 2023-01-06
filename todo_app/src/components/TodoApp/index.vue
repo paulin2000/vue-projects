@@ -1,6 +1,7 @@
 <template >
   <div id="todo-app">
     <h1>TodoApp</h1>
+    <button v-on:click="selection()">sel/desl all</button>
     <input type="text" v-model="input" />
     <button v-on:click="addTodo(input)">Add</button>
     <div class="">{{ input }}</div>
@@ -16,6 +17,8 @@
       </div>
       <div class="" v-else>Todo vides</div>
     </div>
+    
+
   </div>
 </template>
 
@@ -29,14 +32,39 @@ export default {
     TodoItem
   },
   data() {
+    console.log(this.$data)
     return {
       data: [],
       edit: false
     }
   },
   computed: {
+
   },
   methods: {
+    selection() {
+      const temp = this.data.findIndex(el => el.completed === false)
+      const temp2 = this.data.findIndex(el => el.completed === true)
+      if (temp !== -1 && temp2 !== -1) {
+        this.data = this.data.map((el) => {
+          if (el.completed === false) {
+            return {
+              ...el,
+              completed: true
+            }
+          }
+          return el
+        })
+      } else {
+        console.log(this.data)
+        this.data = this.data.map(el => {
+          return{
+            ...el,
+            completed: !el.completed
+          }
+        })
+      }
+    },
     addTodo(dat) {
       const temp = {
         id: Math.floor(Math.random() * 100000),
@@ -49,12 +77,12 @@ export default {
     removeTodo(id) {
       this.data = this.data.filter(el => el.id !== id)
     },
-    updateTodo(id, text) {
+    updateTodo(id, value, field) {
       const data = this.data.map(el => {
         if (el.id === id) {
           return {
             ...el,
-            title: text
+            [field]: value
           }
         }
         return el
