@@ -32,6 +32,7 @@ export default {
     },
     editTodo() {
       this.toogleEdit()
+      this.updateTodo(this.item.id, this.inputData, "title")
     }
   }
 }
