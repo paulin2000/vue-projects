@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-    "allowJs": true,
     "baseUrl": "./",
+    "allowJs": true,
     "moduleResolution": "node",
     "paths": {
       "@/*": [
